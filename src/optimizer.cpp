@@ -1,10 +1,13 @@
 #include "optimizer.hpp"
 #include "utils.hpp"
+#include <pybind11/pybind11.h>
+#include <pybind11/eigen.h>
+#include <Eigen/Dense>
 
 namespace py = pybind11;
 
 // Function to perform optimization
-py::tuple performOptimization(int n, double alpha, double lambda,
+std::vector<double> performOptimization(int n, double alpha, double lambda,
                               const Eigen::MatrixXi& omega_l_eigen,
                               const Eigen::MatrixXd& sp_eigen,
                               const Eigen::MatrixXd& strike_eigen,
@@ -94,15 +97,14 @@ py::tuple performOptimization(int n, double alpha, double lambda,
     auto p_ptr = p->level();
     auto q_ptr = q->level();
 
-    std::vector<double> p_vec(p_ptr->size());
-    std::vector<double> q_vec(q_ptr->size());
+    std::vector<double> p_vec(p_ptr->begin(), p_ptr->end());
+    std::vector<double> q_vec(q_ptr->begin(), q_ptr->end());
 
-    std::copy(p_ptr->begin(), p_ptr->end(), p_vec.begin());
-    std::copy(q_ptr->begin(), q_ptr->end(), q_vec.begin());
+    // Combine p and q vectors into a single vector
+    std::vector<double> result;
+    result.reserve(p_vec.size() + q_vec.size());
+    result.insert(result.end(), p_vec.begin(), p_vec.end());
+    result.insert(result.end(), q_vec.begin(), q_vec.end());
 
-    // Create NumPy arrays from the vectors
-    py::array_t<double> p_np(p_vec.size(), p_vec.data());
-    py::array_t<double> q_np(q_vec.size(), q_vec.data());
-
-    return py::make_tuple(p_np, q_np);
+    return result;
 }

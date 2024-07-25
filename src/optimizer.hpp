@@ -23,7 +23,7 @@ std::shared_ptr<monty::ndarray<T, 2>> eigenToStdMatrix(const Eigen::Matrix<T, Ei
 
 std::vector<double> computeGrossReturns(const Eigen::MatrixXd& payoff_matrix);
 
-py::tuple performOptimization(int n, double alpha, double lambda,
+std::vector<double> performOptimization(int n, double alpha, double lambda,
                               const Eigen::MatrixXi& omega_l_eigen,
                               const Eigen::MatrixXd& sp_eigen,
                               const Eigen::MatrixXd& strike_eigen,
