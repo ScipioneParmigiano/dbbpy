@@ -1,7 +1,7 @@
+import dbbpy
 import unittest
 import numpy as np
 from numpy.testing import assert_array_equal
-import dbbpy
 
 class Testdbbpy(unittest.TestCase):
     
@@ -58,7 +58,6 @@ class Testdbbpy(unittest.TestCase):
 
         self.assertAlmostEqual(np.sum(q), 1)
         self.assertLess(np.abs(q.dot(self.sp_np) - self.fw), 0.02)
-
 
 
     def test_getQReg(self):
