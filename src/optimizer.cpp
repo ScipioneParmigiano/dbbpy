@@ -8,12 +8,12 @@ namespace py = pybind11;
 
 // Function to perform optimization
 std::vector<double> performOptimization(int n, double alpha, double lambda,
-                              const Eigen::MatrixXi& omega_l_eigen,
-                              const Eigen::MatrixXd& sp_eigen,
-                              const Eigen::MatrixXd& strike_eigen,
-                              const Eigen::MatrixXd& bid_eigen,
-                              const Eigen::MatrixXd& ask_eigen,
-                              const Eigen::MatrixXi& pFlag_eigen) {
+                              const Eigen::VectorXd& omega_l_eigen,
+                              const Eigen::VectorXd& sp_eigen,
+                              const Eigen::VectorXd& strike_eigen,
+                              const Eigen::VectorXd& bid_eigen,
+                              const Eigen::VectorXd& ask_eigen,
+                              const Eigen::Matrix<bool, Eigen::Dynamic, 1>& pFlag_eigen) {
 
     // Initialize payoff matrix and compute payoffs
     size_t spLen = sp_eigen.cols();
