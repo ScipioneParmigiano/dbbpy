@@ -34,7 +34,7 @@ class Testdbbpy(unittest.TestCase):
         false_ixd = np.where(feasible_options == False)
         
         with self.assertRaises(AssertionError):
-            assert_array_equal(false_ixd, np.array([ 99, 124, 143, 145])) 
+            assert_array_equal(false_ixd, np.array([99, 124, 143, 145])) 
 
     def test_getMidPriceQ(self):
 
@@ -70,6 +70,28 @@ class Testdbbpy(unittest.TestCase):
 
         self.assertAlmostEqual(np.sum(q), 1)
         self.assertLess(np.abs(q.dot(self.sp_np) - self.fw), 0.02)
+
+    def test_optimize(self):
+        n = 4
+        alpha = 1.3
+        lambda_ = 1.1
+        omega_l = np.array([0, 3])
+        sp = np.array([1200, 1250, 1300, 1350])
+        strike = np.array([1290, 1295, 1295, 1300])
+        bid = np.array([27.7, 27.4, 29.4, 25.0])
+        ask = np.array([29.3, 29.7, 31.4, 26.9])
+        pFlag = np.array([1,0,1,0])
+
+        result = dbbpy.performOptimization(n, alpha, lambda_, omega_l, sp, strike, bid, ask, pFlag)
+        p = result[0]
+        q = result[1]
+
+        exp_p = np.array([0.429653, 0.0304595, 0.0442842, 0.495604])
+        exp_q = np.array([0.325555, 2.34516e-07, 0.147889, 0.526556])
+
+        for i in range(len(p)):
+            self.assertAlmostEqual(p[i], exp_p[i], 5) 
+            self.assertAlmostEqual(q[i], exp_q[i], 5) 
 
     
 if __name__ == '__main__':

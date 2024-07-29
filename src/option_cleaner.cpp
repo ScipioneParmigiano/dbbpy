@@ -51,9 +51,7 @@ getFeasibleOptionFlags(const Eigen::VectorXd& sp,
 
     const M_Matrix::t payoff_wrap = M_Matrix::dense(std::shared_ptr<M_ndarray_2>(new M_ndarray_2(payoffMat.data(), monty::shape(OPTLEN, LEN))));
 
-    // Q_vars are q probabilities
     M_Variable::t q_vars = M->variable("q_vars", LEN, M_Domain::inRange(0.0, SCALER));
-    // opt_vars is the desired output (bool)
     M_Variable::t optVars = M->variable("optVars", OPTLEN, M_Domain::binary());
 
     // Upper and lower bounds

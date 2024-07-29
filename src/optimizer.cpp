@@ -23,8 +23,8 @@ std::vector<double> performOptimization(int n, double alpha, double lambda,
     // Fill the payoff matrix
     for (size_t i = 0; i < optLen; ++i) {
         for (size_t j = 0; j < spLen; ++j) {
-            // Compute OTM payoff based on spot, strike, and option type
-            payoff_matrix(i, j) = otm_payoff(sp_eigen(i, j), strike_eigen(i, 0), pFlag_eigen(i, 0)) / (0.5 * (bid_eigen(i, 0) + ask_eigen(i, 0)));
+        // Compute OTM payoff based on spot, strike, and option type
+        payoff_matrix(i, j) = otm_payoff(sp_eigen(j), strike_eigen(i), pFlag_eigen(i)) / (0.5 * (bid_eigen[i] + ask_eigen[i]));
         }
     }
 

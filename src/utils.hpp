@@ -1,34 +1,6 @@
 #ifndef FUNCTIONS_HPP
 #define FUNCTIONS_HPP
 
-// Function to convert 2-dimensional numpy array to Eigen::MatrixXd
-// template<typename T>
-// Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic> numpy_mat_to_eigen(py::array_t<T, py::array::c_style | py::array::forcecast> arr) {
-//     py::buffer_info info = arr.request();
-//     if (info.ndim != 2) {
-//         throw std::runtime_error("Input should be 2-dimensional numpy array (matrix)");
-//     }
-//     if (info.format != py::format_descriptor<T>::format()) {
-//         throw std::runtime_error("Input should be of the correct type (double, float, int, etc.)");
-//     }
-
-//     Eigen::Map<Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic>> eigen_mat(static_cast<T*>(info.ptr), info.shape[0], info.shape[1]);
-//     return eigen_mat;
-// }
-
-// // Function to convert 1-dimensional numpy array to Eigen::VectorXd
-// template<typename T>
-// Eigen::Matrix<T, Eigen::Dynamic, 1> numpy_vec_to_eigen(py::array_t<T, py::array::c_style | py::array::forcecast> arr) {
-//     py::buffer_info info = arr.request();
-//     if (info.ndim != 1) {
-//         throw std::runtime_error("Input should be 1-dimensional numpy array");
-//     }
-
-//     // Eigen::Map<Eigen::Matrix<T, Eigen::Dynamic, 1>> eigen_vec(static_cast<T*>(info.ptr), info.shape[0]);
-//     // return Eigen::Matrix<T, Eigen::Dynamic, 1>(eigen_vec);
-//     return Eigen::Map<Eigen::Matrix<T, Eigen::Dynamic, 1>>(static_cast<T*>(info.ptr), info.shape[0]); // return directly the map, as the inputs are never modified
-// }
-
 // Function to compute out-of-the-money (OTM) payoff
 double otm_payoff(double spot, double strike, bool isPut) {
     if (isPut) {
@@ -39,7 +11,7 @@ double otm_payoff(double spot, double strike, bool isPut) {
 }
 
 // Function to compute omega L Mask
-std::shared_ptr<monty::ndarray<double, 1>> omegaLMask(const Eigen::VectorXi& positions, int n) {
+std::shared_ptr<monty::ndarray<double, 1>> omegaLMask(const Eigen::VectorXd& positions, int n) {
     // Initialize an n-long array with all elements set to 0.0
     std::vector<double> x(n);
     auto result = monty::new_array_ptr<double>(x);    
