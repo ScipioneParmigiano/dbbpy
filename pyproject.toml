@@ -1,13 +1,17 @@
 [tool.poetry]
 name = "dbbpy"
-version = "0.1.2"
-description = ""
-authors = ["ScipioneParmigiano <pcs.parmigiano@gmail.com>"]
+version = "0.1.6"
+description = "Python interface to recover a bound on ex ante dispersionof beliefs (DBB) from asset prices, based on Pazarbasi, Altan and Schneider, Paul Georg and Vilkov, Grigory, Dispersion of Beliefs Bounds: Sentimental Recovery (October 31, 2019). Swiss Finance Institute Research Paper No. 19-57, Management Science, forthcoming, Available at SSRN: https://ssrn.com/abstract=3478587 or http://dx.doi.org/10.2139/ssrn.3478587"
+authors = ["Pietro Zanotta <zanottapietro1@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.8"
+numpy = "^1.21"
+pybind11 = "^2.6"
 
+[tool.poetry.scripts]
+compile_bindings = "dbbpy.compile:compile_bindings"
 
 [build-system]
 requires = ["poetry-core"]
